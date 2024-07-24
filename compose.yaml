@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: quora
+    ports:
+      - '5432:5432'
+
+  app:
+    build: .
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_NAME: quora
+      JWT_SECRET: mysecretkey
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
